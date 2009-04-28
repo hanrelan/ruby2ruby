@@ -51,6 +51,12 @@ class TestRuby2Ruby < R2RTestCase
     end if defined?(@rootdir) && @rootdir
   end
 
+  def test_do_nothing
+    inn = s(:block, s(:false), nil, s(:block, s(:true), s(:return, s(:true)), nil))
+    out = "false\n# do nothing\n\n(true\nreturn true\n# do nothing\n)\n"
+    util_compare inn, out, true
+  end
+
   def test_dregx_slash
     inn = util_thingy(:dregx)
     out = "/blah\\\"blah#\{(1 + 1)}blah\\\"blah\\/blah/"
